@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Latihan</title>
+    <header><h1>Pencatatan Program Pelatihan</h1>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            background-image: url(img/bg-ummi.jpg);
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 75vh;
+        }
+        header h1 {
+            font-size: 2.5em;
+            color: #2c3e50;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        form {
+            background-color: #add8e6;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: auto;
+        }
+        input, textarea {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: block;
+            margin: auto;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #result {
+            margin-top: 20px;
+            display: none;
+            max-width: 600px;
+            margin: auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            animation: fadeIn 0.5s forwards;
+        }
+        #result table {
+            width: 100%;
+            margin-bottom: 20px;
+            border-collapse: collapse;
+        }
+        #result table, th, td {
+            border: 1px solid #ddd;
+        }
+        #result th, #result td {
+            padding: 20px;
+            text-align: left;
+        }
+        #result th {
+            background-color: #4caf50;
+            color: white;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        .back-button {
+            background-color: #ccc;
+            color: #333;
+            margin-top: 10px;
+        }
+        .back-button:hover {
+            background-color: #bbb;
+        }
+    </style>
+</head>
+<body>
+    <form id="exerciseForm">
+        <label for="namaLatihan">Nama Latihan:</label>
+        <input type="text" id="namaLatihan" required>
+
+        <label for="durasi">Durasi (1-120 menit):</label>
+        <input type="number" id="durasi" min="1" max="120" required>
+
+        <label for="deskripsi">Deskripsi:</label>
+        <textarea id="deskripsi" rows="4" required></textarea>
+
+        <button type="button" onclick="submitForm()">Selanjutnya</button>
+    </form>
+
+    <div id="result">
+        <h2>Jadwal Pelatihan:</h2>
+        <table>
+            <tr>
+                <th>Nama Latihan</th>
+                <td id="resultNama"></td>
+            </tr>
+            <tr>
+                <th>Durasi</th>
+                <td id="resultDurasi"></td>
+            </tr>
+            <tr>
+                <th>Deskripsi</th>
+                <td id="resultDeskripsi"></td>
+            </tr>
+        </table>
+        <button class="back-button" onclick="goBack()">Back</button>
+    </div>
+
+    <script>
+        function submitForm() {
+            // Mendapatkan nilai input
+            var namaLatihan = document.getElementById('namaLatihan').value;
+            var durasi = document.getElementById('durasi').value;
+            var deskripsi = document.getElementById('deskripsi').value;
+
+            // Validasi durasi harus angka dan berada dalam rentang 1-120
+            if (!isNaN(durasi) && durasi >= 1 && durasi <= 120) {
+                // Menampilkan hasil input di halaman berikutnya
+                document.getElementById('resultNama').innerText = namaLatihan;
+                document.getElementById('resultDurasi').innerText = durasi + ' menit';
+                document.getElementById('resultDeskripsi').innerText = deskripsi;
+
+                // Menampilkan halaman berikutnya dan menyembunyikan formulir
+                document.getElementById('result').style.display = 'block';
+                document.getElementById('exerciseForm').style.display = 'none';
+            } else {
+                alert('Durasi harus berupa angka antara 1 dan 120.');
+            }
+        }
+
+        function goBack() {
+            // Menyembunyikan hasil dan menampilkan formulir kembali
+            document.getElementById('result').style.display = 'none';
+            document.getElementById('exerciseForm').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
